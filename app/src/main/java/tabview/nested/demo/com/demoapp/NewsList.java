@@ -80,7 +80,7 @@ public class NewsList extends Fragment {
             public TextView tv;
             public MyViewHolder(View itemView) {
                 super(itemView);
-                tv = (TextView)itemView.findViewById(R.id.tvRv);
+                tv = (TextView)itemView.findViewById(R.id.listTitle);
             }
         }
     }

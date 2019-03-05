@@ -44,7 +44,6 @@ public class TabFragment extends Fragment {
         if (cat_name.equals("tab2"))
         {
             textView.setText(" 2 Fragment " + (position + 1));
-
         }
         else
         {
