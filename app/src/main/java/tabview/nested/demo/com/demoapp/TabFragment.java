@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 public class TabFragment extends Fragment {
 
+    View v;
     int position;
     String cat_name;
     private TextView textView;
@@ -33,12 +34,14 @@ public class TabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.main_extra, container, false);
+        v = inflater.inflate(R.layout.main_extra, container, false);
+        return v;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
         textView = (TextView) view.findViewById(R.id.textView);
 
         if (cat_name.equals("tab2"))

@@ -13,7 +13,9 @@
         android:background="#DCDCDC"
         android:horizontalSpacing="10dp"
         android:verticalSpacing="10dp"
-        android:padding="10dp"
+        android:paddingTop="@dimen/mrg2"
+        android:paddingLeft="@dimen/mrg2"
+        android:paddingRight="@dimen/mrg2"
         />
 
 </RelativeLayout>

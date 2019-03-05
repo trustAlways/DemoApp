@@ -19,10 +19,25 @@ import tabview.nested.demo.com.demoapp.modelfile.Company;
 
 public class ProductDetail extends Fragment {
     View v;
+    int position;
+    String cat_name;
     GridView gridView;
     ArrayList<Company> company;
 
-    public ProductDetail() {
+    public  static Fragment getInstance(int position, String category_name){
+        Bundle bundle = new Bundle();
+        bundle.putInt("pos", position);
+        bundle.putString("cat_name",category_name);
+        ProductDetail productDetail = new ProductDetail();
+        productDetail.setArguments(bundle);
+        return productDetail;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        position = getArguments().getInt("pos");
+        cat_name = getArguments().getString("cat_name");
     }
 
     @Nullable
@@ -40,7 +55,7 @@ public class ProductDetail extends Fragment {
     }
 
     private void setUpRecyclerView() {
-         company = new ArrayList<Company>();
+        company = new ArrayList<Company>();
 
         company.add(new Company("1","apple","Good for health",R.drawable.ic_launcher_background));
         company.add(new Company("1","apple","Good for health",R.drawable.ic_launcher_background));
@@ -52,6 +67,8 @@ public class ProductDetail extends Fragment {
         MySimpleAdapter adapter = new MySimpleAdapter(getActivity(),company);
         gridView.setAdapter(adapter);
     }
+
+
 
     //---------------------------------------------------------------
     public class MySimpleAdapter extends BaseAdapter {

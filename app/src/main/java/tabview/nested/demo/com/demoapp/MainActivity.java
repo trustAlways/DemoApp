@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setUpPager() {
+
         mCategoryTitle = new ArrayList<>();
         mCategoryTitle.add(new news_category("tab1"));
         mCategoryTitle.add(new news_category("tab2"));
@@ -201,7 +202,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return TabFragment.getInstance(position,mFragmentsTitle.get(position).getCategory_name());
+        return ProductDetail.getInstance(position,mFragmentsTitle.get(position).getCategory_name());
     }
 
     @Override
