@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
+    android:layout_gravity="start"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -49,13 +50,13 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:headerLayout="@layout/recycler_row">
+        app:headerLayout="@layout/nav_bar_header">
 
         <ExpandableListView
             android:id="@+id/expandableListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size44"
+            android:layout_marginTop="@dimen/size22"
             android:background="@android:color/white"
             android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
             android:divider="#A4C739"

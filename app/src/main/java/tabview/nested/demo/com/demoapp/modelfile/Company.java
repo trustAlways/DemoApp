@@ -4,10 +4,10 @@ public class Company {
 
     String Comapny_id;
     String Company_name;
-    String Company_networth;
+    int Company_networth;
     int Company_photo;
 
-    public Company(String comapny_id, String company_name, String company_networth, int company_photo) {
+    public Company(String comapny_id, String company_name, int company_networth, int company_photo) {
         Comapny_id = comapny_id;
         Company_name = company_name;
         Company_networth = company_networth;
@@ -30,11 +30,11 @@ public class Company {
         Company_name = company_name;
     }
 
-    public String getCompany_networth() {
+    public int getCompany_networth() {
         return Company_networth;
     }
 
-    public void setCompany_networth(String company_networth) {
+    public void setCompany_networth(int company_networth) {
         Company_networth = company_networth;
     }
 

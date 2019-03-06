@@ -33,6 +33,7 @@
     <dimen name="size1">30dp</dimen>
     <dimen name="size2">40dp</dimen>
     <dimen name="size3">50dp</dimen>
+    <dimen name="size30">45dp</dimen>
     <dimen name="size33">60dp</dimen>
     <dimen name="size4">70dp</dimen>
     <dimen name="size44">80dp</dimen>
@@ -70,6 +71,7 @@
     <dimen name="mrg4">17dp</dimen>
     <dimen name="mrg44">18dp</dimen>
     <dimen name="mrg444">20dp</dimen>
+    <dimen name="card_height">304dp</dimen>
 
     <dimen name="mrg5">22dp</dimen>
     <dimen name="mrg6">27dp</dimen>
@@ -95,5 +97,7 @@
     <dimen name="padding">5px</dimen>
     <dimen name="row_spacing">10px</dimen>
 
+    <dimen name="profile_width">75dp</dimen>
+    <dimen name="profile_height">75dp</dimen>
 
 </resources>
