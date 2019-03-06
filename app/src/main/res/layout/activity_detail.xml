@@ -32,6 +32,7 @@
                 tools:background="@drawable/bell"
                 android:fitsSystemWindows="true"
                 android:scaleType="centerCrop"
+                android:src="@drawable/dn"
                 app:layout_collapseMode="parallax" />
 
             <android.support.v7.widget.Toolbar
@@ -69,7 +70,7 @@
                 android:id="@+id/place_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="@string/dumyText" />
+                android:text="@string/dumyText" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -84,7 +85,7 @@
                 android:id="@+id/place_location"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="@string/dumyText" />
+                android:text="@string/dumyText" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </android.support.design.widget.CoordinatorLayout>

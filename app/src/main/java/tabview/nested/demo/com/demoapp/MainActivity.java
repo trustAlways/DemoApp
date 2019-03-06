@@ -64,6 +64,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mCategoryTitle.add(new news_category("tab1"));
         mCategoryTitle.add(new news_category("tab2"));
         mCategoryTitle.add(new news_category("tab3"));
+        mCategoryTitle.add(new news_category("tab4"));
+        mCategoryTitle.add(new news_category("tab5"));
+        mCategoryTitle.add(new news_category("tab6"));
+        mCategoryTitle.add(new news_category("tab7"));
 
 
         viewPager = (ViewPager) findViewById(R.id.viewpager);
