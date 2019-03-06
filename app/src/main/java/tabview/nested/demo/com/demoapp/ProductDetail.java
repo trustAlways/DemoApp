@@ -174,7 +174,7 @@ public class MySimpleAdapter extends RecyclerView.Adapter<MySimpleAdapter.ViewHo
                 if (companyArrayList.get(i).getComapny_id()=="2")
                 {
                     Context context = v.getContext();
-                    Intent intent = new Intent(context, News_Video_Play.class);
+                    Intent intent = new Intent(context, NewsVideoPlay.class);
                     context.startActivity(intent);
                 }
                 else

@@ -12,8 +12,9 @@ import android.widget.VideoView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class News_Video_Play extends AppCompatActivity {
+public class NewsVideoPlay extends AppCompatActivity {
 
+    private static final String TAG = "newsvideo";
     VideoView videoView;
     ArrayList<String> arrayList = new ArrayList<>(Arrays.asList("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
             "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"));
@@ -25,16 +26,25 @@ public class News_Video_Play extends AppCompatActivity {
         setContentView(R.layout.activity_news_video_play);
 
         videoView = findViewById(R.id.videoView);
-        mediacontroller = new MediaController(this);
-        mediacontroller.setAnchorView(videoView);
+        videoView.setVideoPath(
+                "http://www.ebookfrenzy.com/android_book/movie.mp4");
+
+         mediacontroller = new
+                MediaController(this);
 
 
-        videoView.setMediaController(mediacontroller);
-        videoView.setVideoURI(Uri.parse(arrayList.get(index)));
-        videoView.requestFocus();
-
-        videoView.setVideoURI(Uri.parse(arrayList.get(0)));
-        videoView.start();
+        videoView.setOnPreparedListener(new
+            MediaPlayer.OnPreparedListener()  {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    mediacontroller.setAnchorView(videoView);
+                    videoView.setMediaController(mediacontroller);
+                    mp.setLooping(false);
+                    Log.i(TAG, "Duration = " +
+                            videoView.getDuration());
+                }
+            });
+        videoView.pause();
 
         //preparedListner();
     }
