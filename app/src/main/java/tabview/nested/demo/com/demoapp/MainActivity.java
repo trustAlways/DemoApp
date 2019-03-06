@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -37,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private Toolbar toolbar;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+
+    public ImageView img_slider;
 
     List<news_category> mCategoryTitle;
 
@@ -55,8 +59,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         setUpPager();
+        click();
 
     }
+
+
 
     private void setUpPager() {
 
@@ -90,6 +97,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
          navigationView = findViewById(R.id.nav_view);
          navigationView.setNavigationItemSelectedListener(this);
+
+         img_slider = (ImageView)findViewById(R.id.img_slider);
+    }
+
+    //all the click function are run there
+    private void click() {
+
+        img_slider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (drawer.isDrawerOpen(GravityCompat.START)) {
+                    drawer.closeDrawer(GravityCompat.START);
+                }
+                else{
+                    drawer.openDrawer(GravityCompat.START);
+                }
+            }
+        });
     }
 
     //for preparing menu data
