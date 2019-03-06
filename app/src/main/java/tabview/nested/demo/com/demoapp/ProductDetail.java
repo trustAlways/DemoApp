@@ -1,6 +1,8 @@
 package tabview.nested.demo.com.demoapp;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -149,12 +151,21 @@ public class MySimpleAdapter extends RecyclerView.Adapter<MySimpleAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
         txtname.setText(companyArrayList.get(i).getCompany_name());
         txtdetail.setText(companyArrayList.get(i).getCompany_networth());
         imgcompany.setImageResource(company.get(i).getCompany_photo());
 
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, DetailActivity.class);
+                intent.putExtra(DetailActivity.EXTRA_POSITION, i);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override
