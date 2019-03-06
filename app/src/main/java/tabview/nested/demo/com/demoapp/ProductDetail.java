@@ -13,7 +13,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -70,13 +69,13 @@ public class ProductDetail extends Fragment {
         company = new ArrayList<Company>();
 
         company.add(new Company("1","apple",R.string.dumyText,R.drawable.dn));
-        company.add(new Company("1","apple",R.string.dumyText,R.drawable.news_demo));
+        company.add(new Company("2","apple",R.string.dumyText,R.drawable.news_demo));
         company.add(new Company("1","apple",R.string.dumyText,R.drawable.dn));
-        company.add(new Company("1","apple",R.string.dumyText,R.drawable.news_demo));
+        company.add(new Company("2","apple",R.string.dumyText,R.drawable.news_demo));
         company.add(new Company("1","apple",R.string.dumyText,R.drawable.dn));
-        company.add(new Company("1","apple",R.string.dumyText,R.drawable.news_demo));
+        company.add(new Company("2","apple",R.string.dumyText,R.drawable.news_demo));
         company.add(new Company("1","apple",R.string.dumyText,R.drawable.dn));
-        company.add(new Company("1","apple",R.string.dumyText,R.drawable.news_demo));
+        company.add(new Company("2","apple",R.string.dumyText,R.drawable.news_demo));
 
         MySimpleAdapter adapter = new MySimpleAdapter(getActivity(),company);
         recyclerView.setAdapter(adapter);
@@ -133,7 +132,7 @@ public class ProductDetail extends Fragment {
 public class MySimpleAdapter extends RecyclerView.Adapter<MySimpleAdapter.ViewHolder>
 {
     View v;
-    ImageView imgcompany;
+    ImageView imgcompany,video_play_icon;
     TextView txtname,txtdetail;
     Activity context;
     ArrayList<Company> companyArrayList;
@@ -153,19 +152,42 @@ public class MySimpleAdapter extends RecyclerView.Adapter<MySimpleAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
-        txtname.setText(companyArrayList.get(i).getCompany_name());
-        txtdetail.setText(companyArrayList.get(i).getCompany_networth());
-        imgcompany.setImageResource(company.get(i).getCompany_photo());
+        if (companyArrayList.get(i).getComapny_id()=="2")
+        {
+            video_play_icon.setVisibility(View.VISIBLE);
+            txtname.setText(companyArrayList.get(i).getCompany_name());
+            txtdetail.setText(companyArrayList.get(i).getCompany_networth());
+            imgcompany.setImageResource(company.get(i).getCompany_photo());
+        }
+        else
+        {
+
+            video_play_icon.setVisibility(View.GONE);
+            txtname.setText(companyArrayList.get(i).getCompany_name());
+            txtdetail.setText(companyArrayList.get(i).getCompany_networth());
+            imgcompany.setImageResource(company.get(i).getCompany_photo());
+        }
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context = v.getContext();
-                Intent intent = new Intent(context, DetailActivity.class);
-                intent.putExtra(DetailActivity.EXTRA_POSITION, i);
-                context.startActivity(intent);
+                if (companyArrayList.get(i).getComapny_id()=="2")
+                {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, News_Video_Play.class);
+                    context.startActivity(intent);
+                }
+                else
+                {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, DetailActivity.class);
+                    intent.putExtra(DetailActivity.EXTRA_POSITION, i);
+                    context.startActivity(intent);
+                }
+
             }
         });
+
     }
 
     @Override
@@ -181,6 +203,7 @@ public class MySimpleAdapter extends RecyclerView.Adapter<MySimpleAdapter.ViewHo
             txtname = (TextView)itemView.findViewById(R.id.lbl_name);
             txtdetail = (TextView)itemView.findViewById(R.id.lbl_networth);
             imgcompany = (ImageView)itemView.findViewById(R.id.img_company);
+            video_play_icon = (ImageView)itemView.findViewById(R.id.video_play_icon);
         }
     }
 }

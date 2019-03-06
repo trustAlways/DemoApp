@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".News_Video_Play">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/card_image_height"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="false" />
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/videoView"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/mrg4"
+                android:paddingRight="@dimen/md_keylines"
+                android:paddingTop="@dimen/md_keylines">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorAccent"
+                    android:text="Description"
+                    android:textSize="@dimen/article_titles"
+                    android:layout_marginBottom="@dimen/md_keylines" />
+
+                <TextView
+                    android:id="@+id/place_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dumyText" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?attr/colorAccent"
+                    android:text="Location"
+                    android:textSize="@dimen/article_titles"
+                    android:layout_marginBottom="@dimen/md_keylines"
+                    android:layout_marginTop="@dimen/md_keylines" />
+
+                <TextView
+                    android:id="@+id/place_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dumyText" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/bacl_icon"
+            android:layout_width="@dimen/mrg7"
+            android:layout_height="@dimen/mrg5"
+            android:src="@drawable/back_icon"
+            android:layout_marginLeft="@dimen/mrg2"
+            android:layout_marginTop="@dimen/mrg2"/>
+
+</FrameLayout>
+</android.support.constraint.ConstraintLayout>

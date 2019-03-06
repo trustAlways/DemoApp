@@ -6,5 +6,9 @@
     <string name="dumyText">RecyclerView is a container for displaying large data sets that can be scrolled very efficiently by maintaining a limited number of views.
         Our data set for this codelab is comprised of empty cards which are pieces of paper that serve as an entry point to more information.</string>
 
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
 
 </resources>

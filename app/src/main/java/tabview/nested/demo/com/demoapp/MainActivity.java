@@ -1,6 +1,8 @@
 package tabview.nested.demo.com.demoapp;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -12,6 +14,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -62,9 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         click();
 
     }
-
-
-
+    //views initialization are there
     private void setUpPager() {
 
         mCategoryTitle = new ArrayList<>();
@@ -148,6 +149,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         childModelsList = new ArrayList<>();
         menuModel = new MenuModel("Python Tutorials", true, true, ""); //Menu of Python Tutorials
         headerList.add(menuModel);
+
         childModel = new MenuModel("Python AST – Abstract Syntax Tree", false, false, "https://www.journaldev.com/19243/python-ast-abstract-syntax-tree");
         childModelsList.add(childModel);
 
@@ -202,15 +204,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         return true;
     }
 
+    public void onnBackPressed() {
+        AlertDialog.Builder alertdialog=new AlertDialog.Builder(this);
+        alertdialog.setTitle("Confirmation!");
+        alertdialog.setMessage("Are you sure you Want to exit?");
+        alertdialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent a = new Intent(Intent.ACTION_MAIN);
+                a.addCategory(Intent.CATEGORY_HOME);
+                a.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                a.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(a);
+            }
+        });
+
+        alertdialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+
+        AlertDialog alert=alertdialog.create();
+        alertdialog.show();
+    }
+
 
     @Override
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            onnBackPressed();
         }
     }
+
+  //exit confirmation dialog box
+
 
     //------------------------------------------------------------------------------
 public class ViewPagerAdapter extends FragmentPagerAdapter {
