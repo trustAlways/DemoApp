@@ -19,33 +19,23 @@ public class NewsVideoPlay extends AppCompatActivity {
     ArrayList<String> arrayList = new ArrayList<>(Arrays.asList("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
             "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4"));
      int index = 0;
-     MediaController mediacontroller;
+     MediaController mediaController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_video_play);
 
         videoView = findViewById(R.id.videoView);
-        videoView.setVideoPath(
-                "http://www.ebookfrenzy.com/android_book/movie.mp4");
+        String url = "http://www.ebookfrenzy.com/android_book/movie.mp4";
+        Uri uri = Uri.parse(url);
+        videoView.setVideoPath(String.valueOf(uri));
 
-         mediacontroller = new
+         mediaController = new
                 MediaController(this);
+        videoView.setMediaController(mediaController);
+        mediaController.setAnchorView(videoView);
 
-
-        videoView.setOnPreparedListener(new
-            MediaPlayer.OnPreparedListener()  {
-                @Override
-                public void onPrepared(MediaPlayer mp) {
-                    mediacontroller.setAnchorView(videoView);
-                    videoView.setMediaController(mediacontroller);
-                    mp.setLooping(false);
-                    Log.i(TAG, "Duration = " +
-                            videoView.getDuration());
-                }
-            });
-        videoView.pause();
-
+        videoView.start();
         //preparedListner();
     }
 
@@ -57,8 +47,8 @@ public class NewsVideoPlay extends AppCompatActivity {
                 mp.setOnVideoSizeChangedListener(new MediaPlayer.OnVideoSizeChangedListener() {
                     @Override
                     public void onVideoSizeChanged(MediaPlayer mp, int width, int height) {
-                        videoView.setMediaController(mediacontroller);
-                        mediacontroller.setAnchorView(videoView);
+                        videoView.setMediaController(mediaController);
+                        mediaController.setAnchorView(videoView);
 
                     }
                 });
