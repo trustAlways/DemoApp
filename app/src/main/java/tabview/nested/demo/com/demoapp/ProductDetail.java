@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -32,6 +34,13 @@ public class ProductDetail extends Fragment {
     RecyclerView recyclerView;
     ArrayList<Company> company;
     Spinner spinner;
+
+    ViewPager viewPager;
+    LinearLayout indicator_linear;
+    private int dotscount;
+    private ImageView[] dots;
+
+
    //Arraylist
     ArrayList<String> offerTypesArrayList;
     public  static Fragment getInstance(int position, String category_name){
@@ -57,6 +66,9 @@ public class ProductDetail extends Fragment {
         gridView = (GridView) v.findViewById(R.id.grid);
         recyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
 
+        viewPager = (ViewPager)v.findViewById(R.id._new_view_pager);
+        indicator_linear = (LinearLayout)v.findViewById(R.id.dot_indicator);
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(layoutManager);
@@ -75,7 +87,15 @@ public class ProductDetail extends Fragment {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
 
+        setUpViewPager();
+
         return v;
+    }
+
+    //view pager
+    private void setUpViewPager()
+    {
+
     }
 
     @Override
