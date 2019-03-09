@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
         android:textColor="#ffffff"
-        android:background="#B40404"
+        android:background="@drawable/side_nav_bar"
         android:text="hello"
         android:textStyle="bold"
         android:textSize="@dimen/mrg44"
