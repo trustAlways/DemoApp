@@ -8,13 +8,16 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -28,7 +31,9 @@ public class ProductDetail extends Fragment {
     GridView gridView;
     RecyclerView recyclerView;
     ArrayList<Company> company;
-
+    Spinner spinner;
+   //Arraylist
+    ArrayList<String> offerTypesArrayList;
     public  static Fragment getInstance(int position, String category_name){
         Bundle bundle = new Bundle();
         bundle.putInt("pos", position);
@@ -55,6 +60,20 @@ public class ProductDetail extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.hasFixedSize();
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
+        offerTypesArrayList = new ArrayList<>();
+        offerTypesArrayList.add("Image");
+        offerTypesArrayList.add("Video");
+        offerTypesArrayList.add("Audio");
+        offerTypesArrayList.add("Brief");
+
+        spinner = (Spinner)v.findViewById(R.id.spinner1);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_spinner_item, offerTypesArrayList);
+        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(arrayAdapter);
 
         return v;
     }
@@ -66,6 +85,7 @@ public class ProductDetail extends Fragment {
     }
 
     private void setUpRecyclerView() {
+
         company = new ArrayList<Company>();
 
         company.add(new Company("1","apple",R.string.dumyText,R.drawable.dn));
@@ -79,6 +99,8 @@ public class ProductDetail extends Fragment {
 
         MySimpleAdapter adapter = new MySimpleAdapter(getActivity(),company);
         recyclerView.setAdapter(adapter);
+
+
     }
 
 

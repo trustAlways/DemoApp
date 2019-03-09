@@ -29,7 +29,8 @@
             android:layout_height="wrap_content"
             app:tabTextColor="@color/black"
             android:scrollbars="horizontal"
-            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabIndicatorColor="@color/colorPrimaryDark"
+            app:tabSelectedTextColor="@color/black_overlay"
             android:background="@color/white"
             app:tabMode="scrollable"
             android:elevation="0dp"/>

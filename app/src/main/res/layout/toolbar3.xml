@@ -69,6 +69,17 @@
             />
 
             <ImageView
+                android:id="@+id/search_icon"
+                android:layout_width="@dimen/mrg8"
+                android:layout_height="@dimen/mrg7"
+                android:layout_toLeftOf="@+id/notification_icon"
+                android:layout_marginRight="@dimen/mrg2"
+                android:layout_centerVertical="true"
+                android:background="@android:drawable/ic_menu_search"
+                android:visibility="visible"
+                />
+
+            <ImageView
                 android:id="@+id/notification_icon"
                 android:layout_width="@dimen/mrg8"
                 android:layout_height="@dimen/mrg7"
