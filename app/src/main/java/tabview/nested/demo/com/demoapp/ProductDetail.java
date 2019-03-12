@@ -30,7 +30,6 @@ public class ProductDetail extends Fragment {
     View v;
     int position;
     String cat_name;
-    GridView gridView;
     RecyclerView recyclerView;
     ArrayList<Company> company;
     Spinner spinner;
@@ -63,7 +62,6 @@ public class ProductDetail extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.product_recycler_view, container, false);
-        gridView = (GridView) v.findViewById(R.id.grid);
         recyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
 
         viewPager = (ViewPager)v.findViewById(R.id._new_view_pager);

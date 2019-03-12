@@ -33,6 +33,7 @@
             app:tabSelectedTextColor="@color/black_overlay"
             android:background="@color/white"
             app:tabMode="scrollable"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
             android:elevation="0dp"/>
 
     </android.support.design.widget.AppBarLayout>
