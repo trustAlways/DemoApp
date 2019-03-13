@@ -25,6 +25,8 @@ public class NewsVideoPlay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_video_play);
 
+
+
         videoView = findViewById(R.id.videoView);
         String url = "http://www.ebookfrenzy.com/android_book/movie.mp4";
         Uri uri = Uri.parse(url);
@@ -79,6 +81,7 @@ public class NewsVideoPlay extends AppCompatActivity {
                 return false;
             }
         });
+
     }
 
 

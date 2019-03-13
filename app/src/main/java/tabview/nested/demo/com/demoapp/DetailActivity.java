@@ -2,17 +2,24 @@ package tabview.nested.demo.com.demoapp;
 
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.os.Build;
+import android.speech.tts.TextToSpeech;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class DetailActivity extends AppCompatActivity {
+import java.util.Locale;
+
+public class DetailActivity extends AppCompatActivity implements TextToSpeech.OnInitListener {
 
     public static final String EXTRA_POSITION = "position";
-
+    TextToSpeech textToSpeech;
+    TextView placeDetail;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,6 +27,9 @@ public class DetailActivity extends AppCompatActivity {
 
         setSupportActionBar((Toolbar) findViewById(R.id.toolbar));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        textToSpeech = new TextToSpeech(this, this);
+
         // Set Collapsing Toolbar layout to the screen
         CollapsingToolbarLayout collapsingToolbar =
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
@@ -29,6 +39,16 @@ public class DetailActivity extends AppCompatActivity {
         int postion = getIntent().getIntExtra(EXTRA_POSITION, 0);
         Resources resources = getResources();
         collapsingToolbar.setTitle("peris");
+
+         placeDetail = (TextView) findViewById(R.id.place_detail);
+
+         placeDetail.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 speech();
+             }
+         });
+
         /*String[] places = resources.getStringArray(R.array.places);
         collapsingToolbar.setTitle(places[postion % places.length]);
 
@@ -48,4 +68,31 @@ public class DetailActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onInit(int status) {
+        Log.d("Speech", "OnInit - Status ["+status+"]");
+
+        if (status == TextToSpeech.SUCCESS) {
+            Log.d("Speech", "Success!");
+            textToSpeech.setLanguage(Locale.UK);
+        }
+    }
+
+    private void speech() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            textToSpeech.speak(placeDetail.getText().toString(),
+                    TextToSpeech.QUEUE_FLUSH, null, null);
+            Log.d("Speechingggg -------", "Success!");
+
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (textToSpeech.isSpeaking())
+        {
+            textToSpeech.stop();
+        }
+        super.onBackPressed();
+    }
 }

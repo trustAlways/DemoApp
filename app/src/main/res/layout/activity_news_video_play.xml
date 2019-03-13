@@ -21,7 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/card_image_height"
             android:layout_centerHorizontal="true"
-            android:layout_centerVertical="false" />
+            android:layout_centerVertical="false"
+            android:visibility="visible"/>
+
+
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
