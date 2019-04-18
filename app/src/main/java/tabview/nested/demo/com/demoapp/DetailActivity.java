@@ -80,6 +80,7 @@ public class DetailActivity extends AppCompatActivity implements TextToSpeech.On
 
     private void speech() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            textToSpeech.setSpeechRate(1);
             textToSpeech.speak(placeDetail.getText().toString(),
                     TextToSpeech.QUEUE_FLUSH, null, null);
             Log.d("Speechingggg -------", "Success!");

@@ -3,6 +3,7 @@ package tabview.nested.demo.com.demoapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +24,13 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.skyhope.eventcalenderlibrary.CalenderEvent;
+import com.skyhope.eventcalenderlibrary.listener.CalenderDayClickListener;
+import com.skyhope.eventcalenderlibrary.model.DayContainerModel;
+import com.skyhope.eventcalenderlibrary.model.Event;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import tabview.nested.demo.com.demoapp.modelfile.Company;
 
@@ -85,6 +93,33 @@ public class ProductDetail extends Fragment {
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
 
+        Calendar calendar = Calendar.getInstance();
+
+        CalenderEvent calenderEvent = v.findViewById(R.id.calender_event);
+        //Event event = new Event(calendar.getTimeInMillis(), "Test");
+       // to set desire day time milli second in first parameter
+       //or you set color for each event
+        System.out.println("TIME -- "+calendar.getTimeInMillis());
+
+        Event event = new Event(calendar.getTimeInMillis(), "helooo", Color.RED);
+        calenderEvent.addEvent(event);
+
+        String i = "1555686960000";
+        String ii = "1555773360000";
+
+        Event event1 = new Event(Long.parseLong(i), "56", Color.BLACK);
+        calenderEvent.addEvent(event1);
+
+        Event event11 = new Event(Long.parseLong(ii), "34346", Color.GREEN);
+        calenderEvent.addEvent(event11);
+
+        calenderEvent.initCalderItemClickCallback(new CalenderDayClickListener() {
+            @Override
+            public void onGetDay(DayContainerModel dayContainerModel) {
+                System.out.println("select"+ dayContainerModel.getDate());
+            }
+        });
+
         setUpViewPager();
 
         return v;
@@ -117,7 +152,6 @@ public class ProductDetail extends Fragment {
 
         MySimpleAdapter adapter = new MySimpleAdapter(getActivity(),company);
         recyclerView.setAdapter(adapter);
-
 
     }
 
