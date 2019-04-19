@@ -18,19 +18,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.imanoweb.calendarview.CustomCalendarView;
+import com.imanoweb.calendarview.DayDecorator;
+import com.imanoweb.calendarview.DayView;
 import com.skyhope.eventcalenderlibrary.CalenderEvent;
 import com.skyhope.eventcalenderlibrary.listener.CalenderDayClickListener;
 import com.skyhope.eventcalenderlibrary.model.DayContainerModel;
 import com.skyhope.eventcalenderlibrary.model.Event;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 import tabview.nested.demo.com.demoapp.modelfile.Company;
 
@@ -70,6 +80,7 @@ public class ProductDetail extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.product_recycler_view, container, false);
+
         recyclerView = (RecyclerView)v.findViewById(R.id.my_recycler_view);
 
         viewPager = (ViewPager)v.findViewById(R.id._new_view_pager);
@@ -95,7 +106,7 @@ public class ProductDetail extends Fragment {
 
         Calendar calendar = Calendar.getInstance();
 
-        CalenderEvent calenderEvent = v.findViewById(R.id.calender_event);
+        final CalenderEvent calenderEvent = v.findViewById(R.id.calender_event);
         //Event event = new Event(calendar.getTimeInMillis(), "Test");
        // to set desire day time milli second in first parameter
        //or you set color for each event
@@ -116,9 +127,40 @@ public class ProductDetail extends Fragment {
         calenderEvent.initCalderItemClickCallback(new CalenderDayClickListener() {
             @Override
             public void onGetDay(DayContainerModel dayContainerModel) {
-                System.out.println("select"+ dayContainerModel.getDate());
+                System.out.println("select"+ dayContainerModel.getTimeInMillisecond());
+
             }
         });
+
+        //Initialize CustomCalendarView from layout
+       CustomCalendarView calendarView = (CustomCalendarView)v.findViewById(R.id.calendar_view);
+
+        //Initialize calendar with date
+        Calendar currentCalendar = Calendar.getInstance(Locale.getDefault());
+
+        //Show Monday as first date of week
+        calendarView.setFirstDayOfWeek(Calendar.MONDAY);
+
+       //Show/hide overflow days of a month
+        calendarView.setShowOverflowDate(false);
+
+       //call refreshCalendar to update calendar the view
+        calendarView.refreshCalendar(currentCalendar);
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+        try {
+            Date date = df.parse("22-04-2019");
+            calendarView.markDayAsSelectedDay(date);
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+       /* //adding calendar day decorators
+        List<DayDecorator> decorators = new ArrayList<>();
+        decorators.add(new DisabledColorDecorator());
+        calendarView.setDecorators(decorators);
+        calendarView.refreshCalendar(currentCalendar);*/
+
 
         setUpViewPager();
 
@@ -130,6 +172,8 @@ public class ProductDetail extends Fragment {
     {
 
     }
+
+
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -203,27 +247,100 @@ public class ProductDetail extends Fragment {
 
 //recycler view adapter class for show datd
 
-public class MySimpleAdapter extends RecyclerView.Adapter<MySimpleAdapter.ViewHolder>
+public class MySimpleAdapter extends RecyclerView.Adapter
 {
     View v;
     ImageView imgcompany,video_play_icon;
     TextView txtname,txtdetail;
     Activity context;
     ArrayList<Company> companyArrayList;
+    int VIEW_ONE = 0;
+    int VIEW_TWO = 1;
+    ArrayList<Integer> subList1 = new ArrayList<>();
 
     public MySimpleAdapter(FragmentActivity activity, ArrayList<Company> company) {
         this.context = activity;
         this.companyArrayList = company;
+
+        for (int i = 0; i < 50; i++) {
+            subList1.add(i);
+        }
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        v = LayoutInflater.from(getActivity()).inflate(R.layout.single_company, viewGroup, false);
-        return new ViewHolder(v);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+
+        //v = LayoutInflater.from(getActivity()).inflate(R.layout.single_company, viewGroup, false);
+        //return new ViewHolder(v);
+        System.out.println("view type "+ i);
+        switch (i) {
+            case 0:
+            {
+                v = LayoutInflater.from(getActivity()).inflate(R.layout.nested_recyclerview, viewGroup, false);
+                return new CellViewHolder(v);
+
+            }
+            case 1:
+            {
+                v = LayoutInflater.from(getActivity()).inflate(R.layout.single_company, viewGroup, false);
+                return new ViewHolder(v);
+            }
+            default: {
+                v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.nested_recyclerview, viewGroup, false);
+                return new CellViewHolder(v);
+            }
+        }
     }
 
     @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, final int i) {
+        switch (i) {
+            case 1: {
+                if (companyArrayList.get(i).getComapny_id()=="2")
+                {
+                    video_play_icon.setVisibility(View.VISIBLE);
+                    txtname.setText(companyArrayList.get(i).getCompany_name());
+                    txtdetail.setText(companyArrayList.get(i).getCompany_networth());
+                    imgcompany.setImageResource(company.get(i).getCompany_photo());
+                }
+                else
+                {
+                    video_play_icon.setVisibility(View.GONE);
+                    txtname.setText(companyArrayList.get(i).getCompany_name());
+                    txtdetail.setText(companyArrayList.get(i).getCompany_networth());
+                    imgcompany.setImageResource(company.get(i).getCompany_photo());
+                }
+
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (companyArrayList.get(i).getComapny_id()=="2")
+                        {
+                            Context context = v.getContext();
+                            Intent intent = new Intent(context, NewsVideoPlay.class);
+                            context.startActivity(intent);
+                        }
+                        else
+                        {
+                            Context context = v.getContext();
+                            Intent intent = new Intent(context, DetailActivity.class);
+                            intent.putExtra(DetailActivity.EXTRA_POSITION, i);
+                            context.startActivity(intent);
+                        }
+
+                    }
+                });
+            }
+            case 0:
+                {
+
+                }
+
+            }
+    }
+
+   /* @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
         if (companyArrayList.get(i).getComapny_id()=="2")
@@ -235,7 +352,6 @@ public class MySimpleAdapter extends RecyclerView.Adapter<MySimpleAdapter.ViewHo
         }
         else
         {
-
             video_play_icon.setVisibility(View.GONE);
             txtname.setText(companyArrayList.get(i).getCompany_name());
             txtdetail.setText(companyArrayList.get(i).getCompany_networth());
@@ -263,6 +379,18 @@ public class MySimpleAdapter extends RecyclerView.Adapter<MySimpleAdapter.ViewHo
         });
 
     }
+*/
+    @Override
+    public int getItemViewType(int position) {
+        if (position %(6)== 1)
+        {
+            return VIEW_ONE;
+        }
+        else
+        {
+            return VIEW_TWO;
+        }
+    }
 
     @Override
     public int getItemCount() {
@@ -278,9 +406,97 @@ public class MySimpleAdapter extends RecyclerView.Adapter<MySimpleAdapter.ViewHo
             txtdetail = (TextView)itemView.findViewById(R.id.lbl_networth);
             imgcompany = (ImageView)itemView.findViewById(R.id.img_company);
             video_play_icon = (ImageView)itemView.findViewById(R.id.video_play_icon);
+
         }
     }
-}
+
+    private class CellViewHolder extends RecyclerView.ViewHolder {
+
+        private RecyclerView mRecyclerView;
+        private HorizontalRecyclerAdapter adapter;
+        private LinearLayoutManager layoutManager;
+
+        public CellViewHolder(View itemView) {
+            super(itemView);
+
+            mRecyclerView = itemView.findViewById(R.id.recycler_view);
 
 
+            mRecyclerView.setHasFixedSize(true);
+            layoutManager = new LinearLayoutManager(getActivity());
+            layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            mRecyclerView.setLayoutManager(layoutManager);
+
+            adapter = new HorizontalRecyclerAdapter();
+            mRecyclerView.setAdapter(adapter);
+            // this is needed if you are working with CollapsingToolbarLayout, I am adding this here just in case I forget.
+            mRecyclerView.setNestedScrollingEnabled(false);
+            adapter.updateList(subList1);
+
+        }
+
+
+
+    }
+
+    private class HorizontalRecyclerAdapter extends RecyclerView.Adapter {
+        private ArrayList<Integer> mList;
+
+        public void updateList(ArrayList<Integer> list) {
+            this.mList = list;
+            System.out.println("sub list data "+mList.size());
+            notifyDataSetChanged();
+        }
+
+        @NonNull
+        @Override
+        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+            switch (i) {
+                default: {
+                    View v1 = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.detail_list_item_type_title, viewGroup, false);
+                    return new CellViewHolder(v1);
+                }
+            }
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
+            switch (viewHolder.getItemViewType()) {
+                default: {
+                    CellViewHolder cellViewHolder = (CellViewHolder) viewHolder;
+                    cellViewHolder.textView.setText("" + mList.get(position));
+                    break;
+                }
+            }
+        }
+
+        private class CellViewHolder extends RecyclerView.ViewHolder{
+            private TextView textView;
+            public CellViewHolder(View itemView) {
+                super(itemView);
+                textView = itemView.findViewById(R.id.text);
+
+            }
+        }
+
+        @Override
+        public int getItemCount() {
+            return mList.size();
+        }
+
+
+        }
+    }
+
+
+   /* private class DisabledColorDecorator implements DayDecorator {
+        @Override
+        public void decorate(DayView dayView) {
+
+                Toast.makeText(getActivity(), ""+dayView, Toast.LENGTH_SHORT).show();
+                int color = Color.parseColor("#a9afb9");
+                dayView.setBackgroundColor(color);
+
+        }
+    }*/
 }

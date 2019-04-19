@@ -65,7 +65,25 @@
             android:id="@+id/calender_event"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:visibility="gone"
             android:layout_below="@+id/spinner1"/>
+
+       <com.imanoweb.calendarview.CustomCalendarView
+           android:id="@+id/calendar_view"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:calendarBackgroundColor="@color/white"
+           app:calendarTitleTextColor="@color/black"
+           app:currentDayOfMonthColor="@color/selected_day_background"
+           app:dayOfMonthTextColor="@color/black"
+           app:dayOfWeekTextColor="@color/black"
+           app:disabledDayBackgroundColor="@color/black"
+           app:disabledDayTextColor="@color/grey"
+           android:visibility="gone"
+           app:selectedDayBackgroundColor="@color/selected_day_background"
+           app:titleLayoutBackgroundColor="@color/white"
+           app:weekLayoutBackgroundColor="@color/white"
+           ></com.imanoweb.calendarview.CustomCalendarView>
 
 
     </RelativeLayout>
